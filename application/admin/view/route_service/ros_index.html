@@ -1,0 +1,65 @@
+
+<div class="table-responsive">
+    <table id="service_table">
+    </table>
+</div>
+{include file='route_service/form'/}
+<script>
+    (function(){
+        var $table = $("#service_table");
+        $table.bootstrapTable({
+            url:"{:url('/RouteService/getRosStatus')}",
+            idField:'id',
+            uniqueId:'id',
+            search:true,
+            searchOnEnterKey:false,
+            clickToSelect:true,
+            striped:true,
+            pagination:true,
+            pageSize:10,
+            sidePagination:'server',
+            totalField:'total',
+            dataField:'rows',
+            searchAlign:'left',
+            toolbar:'#service_table_btn',
+            onDblClickRow:function(row,$element,field){
+                var data = $table.bootstrapTable('getData');
+                $.post("{:url('getRowInfo')}",{id:row.id},function(result){
+                    $.each(data,function(k,v){
+                        if(v.id == result.id){
+                            $table.bootstrapTable('updateRow',{
+                                index:k,
+                                row:result
+                            });
+                            return false;
+                        }
+                    });
+                });
+            },
+            columns:[
+                {field:'status',title:'是否正常',sortable:true,sortName:'status',align:'center',formatter:function(value,row,index){
+                    if(value)
+                    {
+                        return '是';
+                    } else {
+                        return '<sapn style="color:red">否</sapn>';
+                    }
+                }},
+
+                {field:'id',title:'id',align:'center',visible:false},
+                {field:'domain',title:'域名',align:'center'},
+                {field:'name',title:'名称',align:'center'},
+                {field:'cpu_ratio',title:'CPU占用率',align:'center',sortable:true},
+                {field:'memory_ratio',title:'内存占用率',align:'center',sortable:true},
+                {field:'free_hdd_space',title:'剩余空间(M)',align:'center',sortable:true},
+                {field:'active_ratio',title:'在线用户率',align:'center',sortable:true},
+                {field:'now_time',title:'系统当前时间',align:'center'},
+                {field:'version',title:'系统版本号',align:'center'},
+                {field:'uptime',title:'运行时间',align:'center'},
+            ],
+        });
+    })(jQuery,window,document);
+
+</script>
+
+
