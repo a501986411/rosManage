@@ -46,6 +46,9 @@
 	{
 		$result = [];
 		foreach ($source as $k => $v) {
+			if(is_object($v)){
+				$v = json_decode(json_encode($v),true);
+			}
 			if(!empty($columns)){
 				foreach ($v as $k1=>$v1 ) {
 					if (in_array($k1, $columns) && !empty($keyColumns)){
@@ -74,14 +77,23 @@
 	 * @return mixed
 	 * @author knight
 	 */
-	function arrayMultiSort($array,$key,$way=SORT_ASC){
+	function arrayMultiSort($array,$key,$way=SORT_ASC)
+	{
+		$array = json_decode(json_encode($array),true);
 		$tmp = arrayColumns($array,[$key]);
+		$tmp = array_column($tmp,$key);
 		if($way == SORT_ASC){
 			asort($tmp);
-		}else {
+		}else{
 			arsort($tmp);
 		}
-		foreach($array as $value){
-			$index = array_search($value[$key],$tmp);
+		$tmp = array_values($tmp);
+		$result = [];
+		foreach($array as $k=>$v){
+			$index = array_search($v[$key],$tmp,true);
+			$result[$index] = $v;
+			$tmp[$index] = '||';
 		}
+		ksort($result);
+		return $result;
 	}

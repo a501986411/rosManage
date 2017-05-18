@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495098100;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495104374;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -185,9 +185,9 @@
                 {field:'id',title:'id',align:'center',visible:false},
                 {field:'domain',title:'域名',align:'center'},
                 {field:'name',title:'名称',align:'center'},
-                {field:'cpu_ratio',title:'CPU占用率',align:'center',sortable:true},
+                {field:'cpu_ratio',title:'CPU占用率',align:'center',sortable:true,sortName:'cpu_ratio'},
                 {field:'memory_ratio',title:'内存占用率',align:'center',sortable:true},
-                {field:'free_hdd_space',title:'剩余空间(M)',align:'center',sortable:true},
+                {field:'free_hdd_space',title:'剩余空间(M)',align:'center',sortable:true,sortName:'cpu_ratio'},
                 {field:'active_ratio',title:'在线用户率',align:'center',sortable:true},
                 {field:'now_time',title:'系统当前时间',align:'center'},
                 {field:'version',title:'系统版本号',align:'center'},

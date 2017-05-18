@@ -110,10 +110,16 @@ class ServiceLogic extends Model
 
         if(!empty($this->sortField)){
             $list = arrayMultiSort($list,$this->sortField,$this->way[$this->sortWay]);
+            $rows = [];
+            foreach($list as $k=>$v){
+               $rows[] = $v;
+            }
+        } else {
+            $rows = $list;
         }
 
         $total = $this->model->count('id');
-        return ['rows'=>$list,'total'=>$total];
+        return ['rows'=>$rows,'total'=>$total];
     }
 
     /**
