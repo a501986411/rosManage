@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50617
+Source Server         : localhost
+Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : ros_admin
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-19 18:33:29
+Date: 2017-05-20 00:13:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,13 +57,13 @@ CREATE TABLE `admin_user` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='管理后台用户基础信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='管理后台用户基础信息表';
 
 -- ----------------------------
 -- Records of admin_user
 -- ----------------------------
 INSERT INTO `admin_user` VALUES ('1', 'chenhailong', '341106d58d01b48fe78fb9cc4de00c22', '0', '1495005404', '127.0.0.1', '0', '1495005404');
-INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495186703', '127.0.0.1', '1494939786', '1495186703');
+INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495210003', '127.0.0.1', '1494939786', '1495210003');
 
 -- ----------------------------
 -- Table structure for route_service
@@ -126,3 +126,34 @@ INSERT INTO `route_service` VALUES ('36', 'xz7', 'xz7.webok.net', 'xz8.webok.net
 INSERT INTO `route_service` VALUES ('37', 'xz81', 'xz81.webok.net', 'xz82.webok.net', '8999', 'api', 'api', '', '100', '0', '1495096322', '1495096322');
 INSERT INTO `route_service` VALUES ('38', 'xz91', 'xz91.webok.net', 'xz92.webok.net', '8999', 'api', 'api', '', '100', '0', '1495096349', '1495096349');
 INSERT INTO `route_service` VALUES ('39', 'sxwn', 'sxwn.webok.net', '', '8999', 'api', 'api', '陕西渭南', '50', '0', '1495111318', '1495111318');
+
+-- ----------------------------
+-- Table structure for server_info
+-- ----------------------------
+DROP TABLE IF EXISTS `server_info`;
+CREATE TABLE `server_info` (
+  `server_id` int(11) NOT NULL DEFAULT '0' COMMENT '服务器主表信息id',
+  `runTime` varchar(255) NOT NULL DEFAULT '' COMMENT '系统运行时间',
+  `version` varchar(255) NOT NULL DEFAULT '' COMMENT '系统版本号',
+  `totalMemory` varchar(50) NOT NULL DEFAULT '0' COMMENT '总内存',
+  `freeMemory` varchar(50) NOT NULL DEFAULT '0' COMMENT '空闲内存',
+  `totalHddSpace` varchar(50) NOT NULL DEFAULT '0' COMMENT '硬盘总空间',
+  `freeHddSpace` varchar(50) NOT NULL DEFAULT '0' COMMENT '硬盘空闲空间',
+  `buildTime` varchar(100) NOT NULL DEFAULT '' COMMENT '系统建立时间',
+  `cpu` varchar(100) NOT NULL DEFAULT '' COMMENT 'cpu型号',
+  `cpuCount` varchar(11) NOT NULL DEFAULT '0' COMMENT 'cpu个数',
+  `cpuFrequency` varchar(100) NOT NULL DEFAULT '0' COMMENT 'cpu频率',
+  `cpuLoad` varchar(100) NOT NULL DEFAULT '0' COMMENT 'cup负载百分数（用于计算频率）',
+  `boardName` varchar(100) NOT NULL DEFAULT '' COMMENT '设备名称',
+  `onLineUserNum` varchar(30) NOT NULL DEFAULT '0' COMMENT '在线用户数',
+  `systemTime` varchar(50) NOT NULL DEFAULT '' COMMENT '系统时间',
+  `timeZone` varchar(100) NOT NULL DEFAULT '' COMMENT '系统时区',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '服务器状态',
+  PRIMARY KEY (`server_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ros服务器其它信息';
+
+-- ----------------------------
+-- Records of server_info
+-- ----------------------------
+INSERT INTO `server_info` VALUES ('22', '4d53m47s', '1234', '134217728', '94449664', '67108864', '25722880', 'Nov/06/2015 12:49:27', 'MIPS 74Kc V4.12', '1', '600', '11', 'RB951G-2HnD', '10', 'Nov/06/2015 12:49:27', 'aa', '1');
+INSERT INTO `server_info` VALUES ('24', '4d53m47s', '1234', '134217728', '94449664', '67108864', '25722880', 'Nov/06/2015 12:49:27', 'MIPS 74Kc V4.12', '1', '600', '11', 'RB951G-2HnD', '10', 'Nov/06/2015 12:49:27', 'aa', '1');

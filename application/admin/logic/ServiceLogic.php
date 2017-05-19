@@ -10,6 +10,7 @@ namespace app\admin\logic;
 
 
 use app\admin\model\RouteService;
+use app\admin\model\ServerInfo;
 use org\RouterosApi;
 use org\RouterosInfo;
 use think\Db;
@@ -104,8 +105,14 @@ class ServiceLogic extends Model
      */
     public function getRosStatusList(){
         $list = $this->model->select();
+        $rosInfo = new ServerInfo();
         foreach ($list as $k=>&$v){
-            $rosObj = new RouterosInfo($v['domain'],$v['port'],$v['username'],$v['password']);
+            $rosObj = $rosInfo->where('server_id',$v['id'])->find();
+            print_r($rosObj);die;
+            if(empty($rosInfo)){
+                $rosObj = new RouterosInfo($v['domain'],$v['port'],$v['username'],$v['password']);
+            }
+            print_r($rosObj);die;
             $this->getRosInfo($rosObj,$v);
         }
         return $list;
@@ -121,17 +128,33 @@ class ServiceLogic extends Model
      */
     public function getRosInfo($rosObj,$v)
     {
-        $v['uptime'] = $rosObj->runTime;
-        $v['version'] = $rosObj->version;//ROS系统版本
-        $v['memory_float'] = $rosObj->memoryRate;
-        $v['memory_ratio'] = ($rosObj->memoryRate * 100)."%" ;//内存占用率
-        $v['cpu_float'] = $rosObj->cpuLoad;
-        $v['cpu_ratio'] = $rosObj->cpuLoad.'%';
-        $v['free_hdd_space'] = $rosObj->freeHddSpace;
-        $v['active_float'] = round(($rosObj->onLineUserNum/(int)$v['max_number'])*100,2);
-        $v['active_ratio'] = $v['active_float'].'%';
-        $v['now_time'] = $rosObj->systemTime;
-        $v['status'] = $rosObj->status;
+        print_r($rosObj);die;
+        if(!is_array($rosObj)){
+            $v['uptime'] = $rosObj->runTime;
+            $v['version'] = $rosObj->version;//ROS系统版本
+            $v['memory_float'] = $rosObj->memoryRate;
+            $v['memory_ratio'] = ($rosObj->memoryRate * 100)."%" ;//内存占用率
+            $v['cpu_float'] = $rosObj->cpuLoad;
+            $v['cpu_ratio'] = $rosObj->cpuLoad.'%';
+            $v['free_hdd_space'] = $rosObj->freeHddSpace;
+            $v['active_float'] = round(($rosObj->onLineUserNum/(int)$v['max_number'])*100,2);
+            $v['active_ratio'] = $v['active_float'].'%';
+            $v['now_time'] = $rosObj->systemTime;
+            $v['status'] = $rosObj->status;
+        } else {
+            $v['uptime'] = $rosObj['runTime'];
+            $v['version'] = $rosObj['version'];//ROS系统版本
+            $v['memory_float'] = $rosObj['memoryRate'];
+            $v['memory_ratio'] = ($rosObj['memoryRate'] * 100)."%" ;//内存占用率
+            $v['cpu_float'] = $rosObj['cpuLoad'];
+            $v['cpu_ratio'] = $rosObj['cpuLoad'].'%';
+            $v['free_hdd_space'] = $rosObj['freeHddSpace'];
+            $v['active_float'] = round(($rosObj['onLineUserNum']/(int)$v['max_number'])*100,2);
+            $v['active_ratio'] = $v['active_float'].'%';
+            $v['now_time'] = $rosObj['systemTime'];
+            $v['status'] = $rosObj['status'];
+        }
+
     }
 
     /**

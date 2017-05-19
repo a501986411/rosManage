@@ -39,4 +39,17 @@ class RouteService extends Model
     protected function getOverdueStrAttr($value,$data){
         return date('Y-m-d H:i:s',$data['overdue']);
     }
+
+    /**
+     * 根据域名获取服务器id
+     * @param $domain 域名
+     * @return mixed
+     */
+    public function getIdByDomain($domain)
+    {
+        $data = $this->where('domain','like',$domain)
+            ->whereOr('by_domain','like','%'.$domain.'%')
+            ->find();
+        return $data->id;
+    }
 }

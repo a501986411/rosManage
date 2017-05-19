@@ -19,7 +19,6 @@
 		public $totalMemory; //总内存
 		public $freeMemory;//空闲内存
 		public $memoryRate;//内存占用率（float）
-		public $cpuRate;//cpu占用率(float)
 		public $totalHddSpace;//磁盘总空间（M）
 		public $freeHddSpace;//剩余磁盘空间(M)
 		public $buildTime;//系统建立时间
@@ -28,10 +27,10 @@
 		public $cpuFrequency;//cpu频率（HZ）
 		public $cpuLoad;//cpu负载
 		public $boardName;//设备型号（名称）
-		public $onLineUserNum;
+		public $onLineUserNum;//在线用户数
 		public $systemTime; //系统时间
 		public $timeZone; //系统时区
-		public $status;
+		public $status;//状态是否正常
 		public function __construct($domain,$port,$user,$pwd)
 		{
 			$this->port = $port;
@@ -77,7 +76,6 @@
 				$this->totalHddSpace = round($rosInfo['total-hdd-space']/1024/1024,1);
 				$this->freeHddSpace = round($rosInfo['free-hdd-space']/1024/1024,1);
 				$this->buildTime   =   date('Y-m-d H:i:s',strtotime(self::enDateToCn($rosInfo['build-time'])));
-				$this->cpuRate = round($rosInfo['cpu-load']/100,2);
 				$this->cpu = $rosInfo['cpu'];
 				$this->cpuCount = $rosInfo['cpu-count'];
 				$this->cpuFrequency = isset($rosInfo['cpu-frequency']) ? $rosInfo['cpu-frequency'] : '';
