@@ -1,14 +1,14 @@
 <div id="service_table_btn">
     <button type="button" class="btn btn-success"  id="add_btn" >新增</button>
     <button type="button" class="btn btn-warning" id="del_btn">删除</button>
-    <button type="button" class="btn btn-info" id="test_link">尝试连接</button>
+    <!--<button type="button" class="btn btn-info" id="test_link">尝试连接</button>-->
 </div>
 <div class="table-responsive">
     <table id="service_table">
     </table>
 </div>
 {include file='route_service/form'/}
-{include file='route_service/link_form'/}
+
 <script>
     (function(){
         var $table = $("#service_table");
@@ -147,6 +147,7 @@
             onDblClickRow:function(row,$element,field){
                 addDialog.data = row;
                 addDialog.open();
+                addDialog.setTitle('修改服务器信息');
             }
         });
 
@@ -154,6 +155,7 @@
         $addBtn.click(function(){
             addDialog.data = {};
             addDialog.open();
+            addDialog.setTitle('新增服务器信息');
         });
 
         $delBtn.click(function(){

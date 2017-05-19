@@ -109,7 +109,7 @@ class RouteService extends App
      */
     public function getRosStatus()
     {
-        $logic = new ServiceLogic(new Service(),input('offset'),input('limit'),input('sort'),input('order'));
+        $logic = new ServiceLogic(new Service());
         return $logic->getRosStatusList();
     }
 

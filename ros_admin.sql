@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50617
+Source Server         : localhost
+Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : ros_admin
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-18 17:50:06
+Date: 2017-05-18 23:03:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,7 +63,7 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 INSERT INTO `admin_user` VALUES ('1', 'chenhailong', '341106d58d01b48fe78fb9cc4de00c22', '0', '1495005404', '127.0.0.1', '0', '1495005404');
-INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495090562', '127.0.0.1', '1494939786', '1495090562');
+INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495112471', '127.0.0.1', '1494939786', '1495112471');
 
 -- ----------------------------
 -- Table structure for route_service
@@ -83,11 +83,46 @@ CREATE TABLE `route_service` (
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='rout os 服务器连接信息';
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='rout os 服务器连接信息';
 
 -- ----------------------------
 -- Records of route_service
 -- ----------------------------
-INSERT INTO `route_service` VALUES ('1', 'home', 'home.webok.me', 'vpn.webok.me', '8728', 'api', 'api', '123454353', '60', '0', '1494746889', '1494859715');
-INSERT INTO `route_service` VALUES ('3', 'ay1', 'ay1.webok.net', '', '8999', 'api', 'api', '', '80', '0', '1494750631', '1494859724');
-INSERT INTO `route_service` VALUES ('4', 'xz', 'xz009.webok.net', 'xz10.webok.net|xz11.webok.net|xz12.webok.net|xz88.webok.net', '8999', 'api', 'api', '', '60', '1496211300', '1494858027', '1494858027');
+INSERT INTO `route_service` VALUES ('1', 'home', 'home.webok.me', 'vpn.webok.me', '8728', 'api', 'api', '', '54', '0', '1494746889', '1495035046');
+INSERT INTO `route_service` VALUES ('3', 'ay1', 'ay1.webok.net', '', '8999', 'api', 'api', '河南安阳', '70', '0', '1494750631', '1495096580');
+INSERT INTO `route_service` VALUES ('4', 'xz10', 'xz009.webok.net', 'xz10.webok.net|xz88.webok.net', '8999', 'api', 'api', '江苏徐州', '100', '0', '1494858027', '1495037553');
+INSERT INTO `route_service` VALUES ('5', 'ahcz', 'ahcz.webok.net', '', '8999', 'api', 'api', '安徽池州', '30', '0', '1495034256', '1495035416');
+INSERT INTO `route_service` VALUES ('6', 'anh2', 'anh2.webok.net', 'anh1.webok.net', '8999', 'api', 'api', '安徽蚌埠', '60', '0', '1495035230', '1495035230');
+INSERT INTO `route_service` VALUES ('7', 'bz1', 'bz1.webok.net', 'bz2.webok.net', '8999', 'api', 'api', '安徽亳州', '38', '0', '1495035402', '1495035402');
+INSERT INTO `route_service` VALUES ('8', 'cd1', 'cd1.webok.net', '', '8999', 'api', 'api', '四川成都', '27', '0', '1495035644', '1495073399');
+INSERT INTO `route_service` VALUES ('9', 'cq1', 'cq1.webok.net', 'cq2.webok.net', '8999', 'api', 'api', '重庆', '54', '0', '1495035822', '1495067996');
+INSERT INTO `route_service` VALUES ('10', 'cs001', 'cs001.webok.net', 'cs003.webok.net', '8999', 'api', 'api', '湖南长沙', '30', '1496160000', '1495036018', '1495036078');
+INSERT INTO `route_service` VALUES ('11', 'cz1', 'cz1.webok.net', '', '8999', 'api', 'api', '湖南郴州', '50', '1496160000', '1495036251', '1495036251');
+INSERT INTO `route_service` VALUES ('12', 'gz2', 'gz2.webok.net', 'gz1.webok.net', '8999', 'api', 'api', '广东广州', '30', '1496160000', '1495036372', '1495036372');
+INSERT INTO `route_service` VALUES ('13', 'ha3', 'ha3.webok.net', 'ha1.webok.net|ha2.webok.net', '8999', 'api', 'api', '江苏淮安', '28', '0', '1495036516', '1495036516');
+INSERT INTO `route_service` VALUES ('14', 'hb2', 'hb2.webok.net', 'hb1.webok.net', '8999', 'api', 'api', '安徽淮北', '38', '0', '1495037258', '1495037258');
+INSERT INTO `route_service` VALUES ('15', 'hbsy1', 'hbsy1.webok.net', '', '8999', 'api', 'api', '河北十堰', '53', '0', '1495037331', '1495037331');
+INSERT INTO `route_service` VALUES ('16', 'hf1', 'hf1.webok.net', '', '8999', 'api', 'api', '安徽合肥', '60', '0', '1495037452', '1495037884');
+INSERT INTO `route_service` VALUES ('17', 'nt1', 'nt1.webok.net', '', '8999', 'api', 'api', '江苏南通', '39', '0', '1495037530', '1495037530');
+INSERT INTO `route_service` VALUES ('18', 'nj3', 'nj3.webok.net', 'nj1.webok.net|nj2.webok.net', '8999', 'api', 'api', '江苏南京', '40', '0', '1495037641', '1495037641');
+INSERT INTO `route_service` VALUES ('19', 'hn1', 'hn1.webok.net', '', '8999', 'api', 'api', '河南三门峡', '40', '0', '1495068262', '1495068262');
+INSERT INTO `route_service` VALUES ('20', 'hs1', 'hs1.webok.net', '', '8999', 'api', 'api', '河北衡水', '50', '1497456000', '1495068372', '1495068372');
+INSERT INTO `route_service` VALUES ('21', 'hz1', 'hz1.webok.net', '', '8999', 'api', 'api', '浙江杭州', '31', '0', '1495068423', '1495068423');
+INSERT INTO `route_service` VALUES ('22', 'jx004', 'jx004.webok.net', 'jx001.webok.net|jx002.webok.net', '8999', 'api', 'api', '江西宜春', '100', '0', '1495068545', '1495068545');
+INSERT INTO `route_service` VALUES ('23', 'lc1', 'lc1.webok.net', '', '8999', 'api', 'api', '山东聊城', '28', '0', '1495068649', '1495068649');
+INSERT INTO `route_service` VALUES ('24', 'lyg', 'lyg.webok.net', '', '8999', 'api', 'api', '江苏连云港', '48', '0', '1495068733', '1495068733');
+INSERT INTO `route_service` VALUES ('25', 'nb1', 'nb1.webok.net', '', '8999', 'api', 'api', '浙江宁波', '49', '0', '1495068848', '1495068848');
+INSERT INTO `route_service` VALUES ('26', 'sdbz', 'sdbz.webok.net', '', '8999', 'api', 'api', '山东滨州', '49', '0', '1495068975', '1495068975');
+INSERT INTO `route_service` VALUES ('27', 'sq3', 'sq3.webok.net', 'sq1.webok.net', '8999', 'api', 'api', '江苏宿迁', '37', '0', '1495069108', '1495069108');
+INSERT INTO `route_service` VALUES ('28', 'sxya', 'sxya.webok.net', '', '8999', 'api', 'api', '陕西延安', '50', '0', '1495069203', '1495069203');
+INSERT INTO `route_service` VALUES ('29', 'tz2', 'tz2.webok.net', 'tz1.webok.net', '8999', 'api', 'api', '浙江台州', '100', '0', '1495069292', '1495069292');
+INSERT INTO `route_service` VALUES ('30', 'zg1', 'zg1.webok.net', '', '8999', 'api', 'api', '四川自贡', '29', '0', '1495069818', '1495069818');
+INSERT INTO `route_service` VALUES ('31', 'zt2', 'zt2.webok.net', 'zt1.webok.net', '8999', 'api', 'api', '浙江泰州', '36', '0', '1495070023', '1495070023');
+INSERT INTO `route_service` VALUES ('32', 'zz1', 'zz1.webok.net', '', '8999', 'api', 'api', '河南郑州', '50', '0', '1495071093', '1495071093');
+INSERT INTO `route_service` VALUES ('33', 'qhxn', 'qhxn.webok.net', '', '8999', 'api', 'api', '青海西宁', '30', '0', '1495072628', '1495072628');
+INSERT INTO `route_service` VALUES ('34', 'ds1', 'ds1.webok.net', '', '8999', 'api', 'api', '混合ds1', '100', '0', '1495096250', '1495096250');
+INSERT INTO `route_service` VALUES ('35', 'hh1', 'hh1.webok.net', 'hh2.webok.net', '8999', 'api', 'api', '', '100', '0', '1495096281', '1495096281');
+INSERT INTO `route_service` VALUES ('36', 'xz7', 'xz7.webok.net', 'xz8.webok.net', '8999', 'api', 'api', '', '80', '0', '1495096302', '1495096302');
+INSERT INTO `route_service` VALUES ('37', 'xz81', 'xz81.webok.net', 'xz82.webok.net', '8999', 'api', 'api', '', '100', '0', '1495096322', '1495096322');
+INSERT INTO `route_service` VALUES ('38', 'xz91', 'xz91.webok.net', 'xz92.webok.net', '8999', 'api', 'api', '', '100', '0', '1495096349', '1495096349');
+INSERT INTO `route_service` VALUES ('39', 'sxwn', 'sxwn.webok.net', '', '8999', 'api', 'api', '陕西渭南', '50', '0', '1495111318', '1495111318');
