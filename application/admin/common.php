@@ -69,7 +69,7 @@
 	}
 
 	/**
-	 * 二位数组排序
+	 * 二位数组排序（未完成）
 	 * @access public
 	 * @param $array 待排序数据
 	 * @param $key 排序key

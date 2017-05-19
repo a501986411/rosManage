@@ -16,8 +16,8 @@ Route::domain('ros.com','admin');
 function enDateToCn($date)
 {
     $en = ['january','february','march','april',
-           'may','june','july','august','September',
-           'october','november','December'];
+        'may','june','july','august','September',
+        'october','november','December'];
     $cn = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     return str_replace($en,$cn,$date);
 }

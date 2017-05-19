@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:78:"E:\project\rosManage\public/../application/admin\view\route_service\index.html";i:1494983978;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:78:"E:\project\rosManage\public/../application/admin\view\route_service\index.html";i:1495158698;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -77,7 +77,7 @@
                 <div id="service_table_btn">
     <button type="button" class="btn btn-success"  id="add_btn" >新增</button>
     <button type="button" class="btn btn-warning" id="del_btn">删除</button>
-    <button type="button" class="btn btn-info" id="test_link">尝试连接</button>
+    <!--<button type="button" class="btn btn-info" id="test_link">尝试连接</button>-->
 </div>
 <div class="table-responsive">
     <table id="service_table">
@@ -144,35 +144,6 @@
     </form>
 </div>
 
-<div class="hidden" style="clear: both" id="link_dlg">
-    <form class="form-horizontal" id="link_form">
-        <div class="form-group">
-            <label for="link_domain" class="col-sm-2 control-label">选择测试域名:</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="domain" id="link_domain">
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="port" class="col-sm-2 control-label">端口:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="port" name="port" readonly>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">用户名:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="username" name="username" readonly>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">连接密码:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="password" name="password" readonly>
-            </div>
-        </div>
-    </form>
-</div>
 
 <script>
     (function(){
@@ -312,6 +283,7 @@
             onDblClickRow:function(row,$element,field){
                 addDialog.data = row;
                 addDialog.open();
+                addDialog.setTitle('修改服务器信息');
             }
         });
 
@@ -319,6 +291,7 @@
         $addBtn.click(function(){
             addDialog.data = {};
             addDialog.open();
+            addDialog.setTitle('新增服务器信息');
         });
 
         $delBtn.click(function(){

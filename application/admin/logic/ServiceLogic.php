@@ -11,6 +11,7 @@ namespace app\admin\logic;
 
 use app\admin\model\RouteService;
 use org\RouterosApi;
+use org\RouterosInfo;
 use think\Db;
 use think\image\Exception;
 use think\Model;
@@ -102,121 +103,35 @@ class ServiceLogic extends Model
      * @return false|\PDOStatement|string|\think\Collection
      */
     public function getRosStatusList(){
-        set_time_limit(0);
         $list = $this->model->select();
-        $rosApi = new RouterosApi();
         foreach ($list as $k=>&$v){
-            $this->getRosInfo($rosApi,$v);
+            $rosObj = new RouterosInfo($v['domain'],$v['port'],$v['username'],$v['password']);
+            $this->getRosInfo($rosObj,$v);
         }
         return $list;
     }
 
-
-
-
     /**
-     * 获取单台服务器信息
+     * 获取ros信息
      * @access public
-     * @param $rosApi
-     * @param $ros
+     * @param $rosObj
+     * @param $v
      * @return void
      * @author knight
      */
-    public function getRosInfo($rosApi,&$ros){
-        $rosInfo = $this->getRosCpuInfo($rosApi,$ros['domain'],$ros['port'],$ros['username'],$ros['password']);
-        $ros['status'] = $rosInfo['status'];
-        if($ros['status']){
-            //转换时间
-            if(strpos($rosInfo['uptime'],'w')>-1){
-                $w = substr($rosInfo['uptime'],0,strpos($rosInfo['uptime'],'w'));
-                $d = $w * 7;
-                if(strpos($rosInfo['uptime'],'d')>-1){
-                    $d += substr($rosInfo['uptime'],strpos($rosInfo['uptime'],'w'),strpos($rosInfo['uptime'],'d')-strpos($rosInfo['uptime'],'w'));
-                    $rosInfo['uptime'] = $d.'d'.substr($rosInfo['uptime'],strpos($rosInfo['uptime'],'d')+1);
-                } else {
-                    $rosInfo['uptime'] = $d.'d'.substr($rosInfo['uptime'],(strpos($rosInfo['uptime'],'w')+1));
-                }
-            }
-            $uptime = str_replace(['w','d','h','m','s'],['周','天','小时','分','秒'],$rosInfo['uptime']);//运行时间
-
-            $ros['uptime'] =$uptime;
-            $ros['version'] = $rosInfo['version'];//ROS系统版本
-            $ros['memory_float'] = round((100-($rosInfo['free-memory']/$rosInfo['total-memory']) * 100),1);
-            $ros['memory_ratio'] = $ros['memory_float']."%" ;//内存占用率
-            $ros['cpu_float'] = $rosInfo['cpu-load'];
-            $ros['cpu_ratio'] = $ros['cpu_float'].'%';
-            $ros['free_hdd_space'] = round($rosInfo['free-hdd-space']/(1024*1024),1);
-            $activeNum = $this->getPppInfo($rosApi,$ros['domain'],$ros['port'],$ros['username'],$ros['password']);
-            $ros['active_float'] = round(($activeNum/(int)$ros['max_number'])*100,2);
-            $ros['active_ratio'] = $ros['active_float'].'%';
-            $ros['now_time'] = $this->getNowTime($rosApi,$ros['domain'],$ros['port'],$ros['username'],$ros['password']);
-        }
-    }
-
-    /**
-     * 获取ROS服务器硬件信息
-     * @param $rosApi
-     * @param $domain
-     * @param $port
-     * @param $username
-     * @param $password
-     * @return mixed
-     */
-    private function getRosCpuInfo($rosApi,$domain,$port,$username,$password)
+    public function getRosInfo($rosObj,$v)
     {
-        $domain .= ':'.$port;
-        if($rosApi->connect($domain,$username,$password)) {
-            $rosApi->write('/system/resource/getall');
-            $rosInfo = $rosApi->read(true);
-            $rosApi->disconnect();
-            $rosInfo[0]['status'] = true;
-        } else {
-            $rosInfo[0]['status'] = false;
-        }
-        return $rosInfo[0];
-    }
-
-    /**
-     * 获取活跃用户数
-     * @param $rosApi
-     * @param $domain
-     * @param $port
-     * @param $username
-     * @param $password
-     * @return int
-     */
-    public function getPppInfo($rosApi,$domain,$port,$username,$password)
-    {
-        $domain .= ':'.$port;
-        if($rosApi->connect($domain,$username,$password)) {
-            $rosApi->write('/ppp/active/getall');
-            $aUserInfo = $rosApi->read(true);
-            $rosApi->disconnect();
-            return count($aUserInfo);
-        }
-        return 0;
-    }
-
-    /**
-     *  获取ROS服务器当前时间
-     * @param $rosApi
-     * @param $domain
-     * @param $port
-     * @param $username
-     * @param $password
-     * @return false|string
-     */
-    public function getNowTime($rosApi,$domain,$port,$username,$password)
-    {
-        $domain .= ':'.$port;
-        if($rosApi->connect($domain,$username,$password)) {
-            $rosApi->write('/system/clock/getall');
-            $date = $rosApi->read(true);
-            $rosApi->disconnect();
-            $date = strtotime(enDateToCn($date[0]['date']).' '.$date[0]['time']);
-            return date('Y-m-d H:i:s',$date);
-        }
-        return '';
+        $v['uptime'] = $rosObj->runTime;
+        $v['version'] = $rosObj->version;//ROS系统版本
+        $v['memory_float'] = $rosObj->memoryRate;
+        $v['memory_ratio'] = ($rosObj->memoryRate * 100)."%" ;//内存占用率
+        $v['cpu_float'] = $rosObj->cpuLoad;
+        $v['cpu_ratio'] = $rosObj->cpuLoad.'%';
+        $v['free_hdd_space'] = $rosObj->freeHddSpace;
+        $v['active_float'] = round(($rosObj->onLineUserNum/(int)$v['max_number'])*100,2);
+        $v['active_ratio'] = $v['active_float'].'%';
+        $v['now_time'] = $rosObj->systemTime;
+        $v['status'] = $rosObj->status;
     }
 
     /**
@@ -228,7 +143,7 @@ class ServiceLogic extends Model
      */
     public function getRowInfo($id){
         $ros = $this->model->find($id);
-        $rosApi = new RouterosApi();
+        $rosApi =  new RouterosInfo($ros['domain'],$ros['port'],$ros['username'],$ros['password']);
         $this->getRosInfo($rosApi,$ros);
         return $ros;
     }

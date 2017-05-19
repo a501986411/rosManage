@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50505
+Source Server         : 127.0.0.1
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : ros_admin
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-05-18 23:03:01
+Date: 2017-05-19 18:33:29
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,7 +63,7 @@ CREATE TABLE `admin_user` (
 -- Records of admin_user
 -- ----------------------------
 INSERT INTO `admin_user` VALUES ('1', 'chenhailong', '341106d58d01b48fe78fb9cc4de00c22', '0', '1495005404', '127.0.0.1', '0', '1495005404');
-INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495112471', '127.0.0.1', '1494939786', '1495112471');
+INSERT INTO `admin_user` VALUES ('2', 'admin', 'c3284d0f94606de1fd2af172aba15bf3', '1', '1495186703', '127.0.0.1', '1494939786', '1495186703');
 
 -- ----------------------------
 -- Table structure for route_service

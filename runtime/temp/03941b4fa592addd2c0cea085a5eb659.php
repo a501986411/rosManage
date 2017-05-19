@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:3:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495104374;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495158698;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -74,7 +74,9 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-2 main no-mg-lf no-pd-rt">
             <div class="panel">
-                
+                <div id="service_table_btn">
+    <button type="button" class="btn btn-info" id="test_link">尝试连接</button>
+</div>
 <div class="table-responsive">
     <table id="service_table">
     </table>
@@ -140,9 +142,89 @@
     </form>
 </div>
 
+<div class="hidden" style="clear: both" id="link_dlg">
+    <form class="form-horizontal" id="link_form">
+        <div class="form-group">
+            <label for="link_domain" class="col-sm-2 control-label">选择测试域名:</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="domain" id="link_domain">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="port" class="col-sm-2 control-label">端口:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="port" name="port" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">用户名:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" name="username" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">连接密码:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="password" name="password" readonly>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script>
     (function(){
         var $table = $("#service_table");
+        var $testLink = $('#test_link');
+        var $linkDlg = $('#link_dlg');
+        //测试链接弹框
+        var linkDlg = new BootstrapDialog({
+            title:'连接测试',
+            message:function(){
+                var msg = $linkDlg.html();
+                $linkDlg.remove();
+                return msg;
+            },
+            nl2br:false,
+            data:{},
+            onshown:function(dialogRef){
+                var $form = $('#link_form');
+                var $linkDomain = $('#link_domain');
+                if(!$.is_null(dialogRef.data)){ //修改 表单赋值
+                    var byDomain = [];
+                    $linkDomain.append('<option value="'+dialogRef.data.domain+'">'+dialogRef.data.domain+'</option>')
+                    if(!$.is_null(dialogRef.data.by_domain)){
+                        byDomain =  dialogRef.data.by_domain.split('|');
+                        $.each(byDomain,function(k,v){
+                            $linkDomain.append('<option value="'+v+'">'+v+'</option>');
+                        });
+                    }
+                    $form.formLoad(dialogRef.data);
+                }
+            },
+            buttons:[{
+                id:'btn-ok',
+                label:'连接',
+                cssClass:'btn-primary',
+                action:function(dialogRef){
+                    var $form = $('#link_form');
+                    $form.formSubmit({
+                        url:"<?php echo url('testLink'); ?>",
+                        success:function(result){
+                            $.dialogMsg({message:result.msg});
+                        }
+                    });
+                },
+            },
+                {
+                    id:'btn-false',
+                    label:'取消',
+                    cssClass:'btn-default',
+                    action:function(dialogRef){
+                        dialogRef.close();
+                    }
+                },]
+        });
         $table.bootstrapTable({
             url:"<?php echo url('/RouteService/getRosStatus'); ?>",
             idField:'id',
@@ -153,11 +235,12 @@
             striped:true,
             pagination:true,
             pageSize:10,
-            sidePagination:'server',
-            totalField:'total',
-            dataField:'rows',
-            searchAlign:'left',
+//            sidePagination:'server',
+//            totalField:'total',
+//            dataField:'rows',
+            searchAlign:'right',
             toolbar:'#service_table_btn',
+            singleSelect:true,
             onDblClickRow:function(row,$element,field){
                 var data = $table.bootstrapTable('getData');
                 $.post("<?php echo url('getRowInfo'); ?>",{id:row.id},function(result){
@@ -172,7 +255,9 @@
                     });
                 });
             },
+
             columns:[
+                {field:'checked',title:'选择',checkbox:true},
                 {field:'status',title:'是否正常',sortable:true,sortName:'status',align:'center',formatter:function(value,row,index){
                     if(value)
                     {
@@ -185,14 +270,27 @@
                 {field:'id',title:'id',align:'center',visible:false},
                 {field:'domain',title:'域名',align:'center'},
                 {field:'name',title:'名称',align:'center'},
-                {field:'cpu_ratio',title:'CPU占用率',align:'center',sortable:true,sortName:'cpu_ratio'},
-                {field:'memory_ratio',title:'内存占用率',align:'center',sortable:true},
-                {field:'free_hdd_space',title:'剩余空间(M)',align:'center',sortable:true,sortName:'cpu_ratio'},
-                {field:'active_ratio',title:'在线用户率',align:'center',sortable:true},
+                {field:'cpu_ratio',title:'CPU占用率',align:'center',sortable:true,sortName:'cpu_float'},
+                {field:'memory_ratio',title:'内存占用率',align:'center',sortable:true,sortName:'memory_float'},
+                {field:'free_hdd_space',title:'剩余空间(M)',align:'center',sortable:true},
+                {field:'active_ratio',title:'在线用户率',align:'center',sortable:true,sortName:'active_ratio'},
                 {field:'now_time',title:'系统当前时间',align:'center'},
                 {field:'version',title:'系统版本号',align:'center'},
                 {field:'uptime',title:'运行时间',align:'center'},
             ],
+        });
+        //尝试连接
+        $testLink.click(function(){
+            var row = $table.bootstrapTable('getSelections');
+            if(!row.length){
+                $.dialogMsg({message:'请选择数据'})
+                return false;
+            } else if(row.length>1){
+                $.dialogMsg({message:'最多选择一行数据'})
+                return false;
+            }
+            linkDlg.data = row[0];
+            linkDlg.open();
         });
     })(jQuery,window,document);
 
