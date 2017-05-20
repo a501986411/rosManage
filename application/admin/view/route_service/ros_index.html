@@ -77,17 +77,9 @@
             toolbar:'#service_table_btn',
             singleSelect:true,
             onDblClickRow:function(row,$element,field){
-                var data = $table.bootstrapTable('getData');
+                var data = $table.bootstrapTable('getData',true);
                 $.post("{:url('getRowInfo')}",{id:row.id},function(result){
-                    $.each(data,function(k,v){
-                        if(v.id == result.id){
-                            $table.bootstrapTable('updateRow',{
-                                index:k,
-                                row:result
-                            });
-                            return false;
-                        }
-                    });
+                    $table.bootstrapTable('updateByUniqueId',{id:result.id, row:result});
                 });
             },
 

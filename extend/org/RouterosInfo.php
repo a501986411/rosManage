@@ -66,7 +66,6 @@
 		public function setOptions()
 		{
 			if($this->status){
-//				echo 1;
 				$rosInfo = $this->getSystemHardwareInfo();
 				$this->runTime = self::changeRunTime($rosInfo['uptime']);
 				$this->version = $rosInfo['version'];
@@ -82,13 +81,10 @@
 				$this->cpuLoad = $rosInfo['cpu-load'];
 				$this->onLineUserNum = count($this->getOnLineUserInfo());
 				$systemTimeInfo = $this->getSystemTimeInfo();
-				$this->systemTime = self::enDateToCn($systemTimeInfo['date']).' '.$systemTimeInfo['time'];
+				$this->systemTime = date('Y-m-d H:i:s',strtotime(self::enDateToCn($systemTimeInfo['date']).' '.$systemTimeInfo['time']));
 				$this->timeZone = $systemTimeInfo['time-zone-name'];
 			}
 		}
-
-
-
 
 		/**
 		 * 获取系统硬件信息
@@ -145,7 +141,7 @@
 		 * @return mixed
 		 * @author knight
 		 */
-		private static function enDateToCn($date)
+		public static function enDateToCn($date)
 		{
 			$en = ['January','February','March','April',
 				'May','June','July','August','September',
@@ -163,16 +159,16 @@
 		 * @return mixed
 		 * @author knight
 		 */
-		private static function changeRunTime($time){
+		public static function changeRunTime($time){
 			//转换运行时间
 			if(strpos($time,'w')>-1){
 				$w = substr($time,0,strpos($time,'w'));
 				$d = $w * 7;
 				if(strpos($time,'d')>-1){
-					$d += substr($time,strpos($time,'w'),strpos($time,'d')-strpos($time,'w'));
-					$rosInfo['uptime'] = $d.'d'.substr($time,(strpos($time,'d')+1));
+					$d += substr($time,strpos($time,'w')+1,(strpos($time,'d')-strpos($time,'w')));
+					$time = $d.'d'.substr($time,(strpos($time,'d')+1));
 				} else {
-					$rosInfo['uptime'] = $d.'d'.substr($time,(strpos($time,'w')+1));
+					$time = $d.'d'.substr($time,(strpos($time,'w')+1));
 				}
 			}
 			return str_replace(['w','d','h','m','s'],['周','天','小时','分','秒'],$time);//运行时间

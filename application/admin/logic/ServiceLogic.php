@@ -108,11 +108,9 @@ class ServiceLogic extends Model
         $rosInfo = new ServerInfo();
         foreach ($list as $k=>&$v){
             $rosObj = $rosInfo->where('server_id',$v['id'])->find();
-            print_r($rosObj);die;
-            if(empty($rosInfo)){
+            if(is_null($rosObj)){
                 $rosObj = new RouterosInfo($v['domain'],$v['port'],$v['username'],$v['password']);
             }
-            print_r($rosObj);die;
             $this->getRosInfo($rosObj,$v);
         }
         return $list;
@@ -126,9 +124,8 @@ class ServiceLogic extends Model
      * @return void
      * @author knight
      */
-    public function getRosInfo($rosObj,$v)
+    public function getRosInfo($rosObj,&$v)
     {
-        print_r($rosObj);die;
         if(!is_array($rosObj)){
             $v['uptime'] = $rosObj->runTime;
             $v['version'] = $rosObj->version;//ROS系统版本
@@ -154,7 +151,6 @@ class ServiceLogic extends Model
             $v['now_time'] = $rosObj['systemTime'];
             $v['status'] = $rosObj['status'];
         }
-
     }
 
     /**

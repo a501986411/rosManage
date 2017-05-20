@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495158698;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495256869;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -242,17 +242,9 @@
             toolbar:'#service_table_btn',
             singleSelect:true,
             onDblClickRow:function(row,$element,field){
-                var data = $table.bootstrapTable('getData');
+                var data = $table.bootstrapTable('getData',true);
                 $.post("<?php echo url('getRowInfo'); ?>",{id:row.id},function(result){
-                    $.each(data,function(k,v){
-                        if(v.id == result.id){
-                            $table.bootstrapTable('updateRow',{
-                                index:k,
-                                row:result
-                            });
-                            return false;
-                        }
-                    });
+                    $table.bootstrapTable('updateByUniqueId',{id:result.id, row:result});
                 });
             },
 

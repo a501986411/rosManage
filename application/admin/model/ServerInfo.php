@@ -9,6 +9,7 @@
 namespace app\admin\model;
 
 
+use org\RouterosInfo;
 use think\Model;
 
 class ServerInfo extends Model
@@ -16,5 +17,79 @@ class ServerInfo extends Model
     public function initialize()
     {
         parent::initialize();
+    }
+
+    /**
+     * 系统运行时间
+     * @access public
+     * @param $value
+     * @param $data
+     * @return mixed
+     * @author knight
+     */
+    protected function getRunTimeAttr($value,$data)
+    {
+        return RouterosInfo::changeRunTime($value);
+    }
+
+    /**
+     * 内存占用率
+     * @access public
+     * @param $value
+     * @param $data
+     * @return float
+     * @author knight
+     */
+    protected function getMemoryRateAttr($value,$data)
+    {
+        return $value ? round((1-($data['freeMemory']/$data['totalMemory'])),2) : 0;
+    }
+    /**
+     * 获取空闲空间
+     * @access public
+     * @param $value
+     * @param $data
+     * @return float
+     * @author knight
+     */
+    protected function getTotalHddSpaceAttr($value,$data)
+    {
+        return round($value/1024/1024,1);
+    }
+
+    /**
+     * 获取空闲空间
+     * @access public
+     * @param $value
+     * @param $data
+     * @return float
+     * @author knight
+     */
+    protected function getFreeHddSpaceAttr($value,$data)
+    {
+        return round($value/1024/1024,1);
+    }
+
+    /**
+     * 系统创建时间
+     * @access public
+     * @param $value
+     * @param $data
+     * @return bool|string
+     * @author knight
+     */
+    protected function getBuildTimeAttr($value,$data){
+        return date('Y-m-d H:i:s',strtotime(RouterosInfo::enDateToCn($value)));
+    }
+    /**
+     * 系统创建时间
+     * @access public
+     * @param $value
+     * @param $data
+     * @return bool|string
+     * @author knight
+     */
+    protected function getSystemTimeAttr($value,$data){
+        return date('Y-m-d H:i:d',strtotime(RouterosInfo::enDateToCn($value)));
     }
 }
