@@ -108,7 +108,7 @@ class RouteService extends App
      * @return false|\PDOStatement|string|\think\Collection
      */
     public function getRosStatus()
-    {
+    {   
         $logic = new ServiceLogic(new Service());
         return $logic->getRosStatusList();
     }

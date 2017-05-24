@@ -149,7 +149,7 @@
 
 			$cn = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 			$en1 = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
-			return str_ireplace ($en1,$cn,str_ireplace ($en,$cn,$date));
+			return str_ireplace ($en1,$cn,str_ireplace ($en,$cn,str_ireplace('Z',' ',$date)));
 		}
 
 		/**

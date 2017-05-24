@@ -42,7 +42,7 @@ class ServerInfo extends Model
      */
     protected function getMemoryRateAttr($value,$data)
     {
-        return $value ? round((1-($data['freeMemory']/$data['totalMemory'])),2) : 0;
+        return round(1-($data['freeMemory']/$data['totalMemory']),2);
     }
     /**
      * ªÒ»°ø’œ–ø’º‰
