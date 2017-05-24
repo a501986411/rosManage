@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495549198;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:82:"E:\project\rosManage\public/../application/admin\view\route_service\ros_index.html";i:1495593022;s:72:"E:\project\rosManage\public/../application/admin\view\layout\layout.html";i:1495077108;s:77:"E:\project\rosManage\public/../application/admin\view\route_service\form.html";i:1494846626;s:82:"E:\project\rosManage\public/../application/admin\view\route_service\link_form.html";i:1494983978;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -269,6 +269,14 @@
                 {field:'now_time',title:'系统当前时间',align:'center'},
                 {field:'version',title:'系统版本号',align:'center'},
                 {field:'uptime',title:'运行时间',align:'center'},
+                {field:'update_t',title:'更新时间',align:'center',sortable:true,sortName:'update_int',formatter:function(value,row,index){
+                    var date = new Date();
+                    var time = date.getTime();
+                    if(((time/1000)) - row.update_int >  300){
+                        return '<span style="background-color: red;">'+value+'</span>'
+                    }
+                    return value;
+                }},
             ],
         });
         //尝试连接

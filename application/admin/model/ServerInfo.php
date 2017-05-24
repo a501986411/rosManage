@@ -14,6 +14,7 @@ use think\Model;
 
 class ServerInfo extends Model
 {
+    protected $autoWriteTimestamp = true;//自动写入时间戳
     public function initialize()
     {
         parent::initialize();

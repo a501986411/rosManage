@@ -107,6 +107,7 @@ class ServiceLogic extends Model
         $list = $this->model->select();
         $rosInfo = new ServerInfo();
         foreach ($list as $k=>&$v){
+            unset($v['update_time']);
             $rosObj = $rosInfo->where('server_id',$v['id'])->find();
             if(is_null($rosObj)){
                 $rosObj = new RouterosInfo($v['domain'],$v['port'],$v['username'],$v['password']);
@@ -138,6 +139,8 @@ class ServiceLogic extends Model
             $v['active_ratio'] = $v['active_float'].'%';
             $v['now_time'] = $rosObj->systemTime;
             $v['status'] = $rosObj->status;
+            $v['update_t']  = isset($rosObj->update_time) ? $rosObj->update_time : date('Y-m-d H:i:s',time());
+            $v['update_int']  = strtotime($v['update_t']);
         } else {
             $v['uptime'] = $rosObj['runTime'];
             $v['version'] = $rosObj['version'];//ROS系统版本
@@ -150,6 +153,8 @@ class ServiceLogic extends Model
             $v['active_ratio'] = $v['active_float'].'%';
             $v['now_time'] = $rosObj['systemTime'];
             $v['status'] = $rosObj['status'];
+            $v['update_t'] = isset($rosObj['update_time']) ? $rosObj['update_time'] : date('Y-m-d H:i:s',time());
+            $v['update_int']  = strtotime($v['update_t']);
         }
     }
 
