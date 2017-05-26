@@ -207,7 +207,7 @@ class MysqlAdapter extends PdoAdapter implements AdapterInterface
     {
         $this->startCommandTimer();
 
-        // This method is based on the MySQL docs here: http://dev.mysql.com/doc/refman/5.1/en/create-index.html
+        // This method is based on the MySQL docs here: http://dev.mysql.com/doc/refman/5.1/en/create-form.html
         $defaultOptions = [
             'engine'    => 'InnoDB',
             'collation' => 'utf8_general_ci'

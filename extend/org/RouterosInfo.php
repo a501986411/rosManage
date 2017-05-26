@@ -134,6 +134,22 @@
 			return $userInfo;
 		}
 
+
+		/**
+		 * 获取Ip绑定信息
+		 * @access public
+		 * @return array
+		 * @author knight
+		 */
+		public function getIpBindInfo(){
+			if(!$this->connected){
+				$this->connectSer();
+			}
+			$this->write('/ip/hotspot/ip-binding/getall');
+			$ipBindInfo = $this->read(true);
+			return $ipBindInfo;
+		}
+
 		/**
 		 * 英文月份转换
 		 * @access public
@@ -173,6 +189,7 @@
 			}
 			return str_replace(['w','d','h','m','s'],['周','天','小时','分','秒'],$time);//运行时间
 		}
+
 
 
 

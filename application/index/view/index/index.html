@@ -1,0 +1,43 @@
+<div class="container ui-sortable">
+    <h1>MAC地址列表</h1>
+    <input class="btn btn-primary radius addBtn"  type="button" value="新增">
+    <div class="panel panel-default">
+        <table class="table table-border table-bordered table-hover">
+            <thead class="text-c">
+                <tr>
+                    <th>序号</th>
+                    <th>MAC地址</th>
+                    <th>备注</th>
+                    <th>类型</th>
+                    <th style="width: 220px;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            {php}
+                foreach($list as $k=>$v){
+                    echo '<tr class="text-c">
+                <td>'.($k+1).'</td>
+                <td>'.$v['mac-address'].'</td>
+                <td>'.$v['comment'].'</td>
+                <td>'.$v['type'].'</td>
+                <td>
+                    <input class="btn btn-primary radius editBtn"  type="button" value="编辑">
+                    <input class="btn btn-danger radius delBtn" type="button" value="删除">
+                </td>
+            </tr>';
+                }
+            {/php}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+$(function(){
+    var $addBtn = $('.addBtn');
+    $addBtn.click(function(){
+        top.location = '{:url("edit")}'
+    });
+});
+
+
+</script>

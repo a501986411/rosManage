@@ -44,4 +44,9 @@
 			// 是否使用 setcookie
 			'setcookie' => true,
 		],
+
+		'template'               => [
+			'layout_on'     =>  true,
+			'layout_name'   =>  'layout/layout',
+		],
 	];
