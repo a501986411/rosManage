@@ -22,7 +22,7 @@
                 <td>'.$v['type'].'</td>
                 <td>
                     <input class="btn btn-primary radius editBtn"  type="button" value="编辑">
-                    <input class="btn btn-danger radius delBtn" type="button" value="删除">
+                    <input class="btn btn-danger radius delBtn" data-id='.$v[".id"].' type="button" value="删除">
                 </td>
             </tr>';
                 }
@@ -34,9 +34,27 @@
 <script>
 $(function(){
     var $addBtn = $('.addBtn');
+    var $delBtn = $(".delBtn");
     $addBtn.click(function(){
         top.location = '{:url("edit")}'
     });
+
+    $delBtn.click(function(){
+        $btnObj = $(this);
+        if(confirm('确认删除吗？')){
+            $id = $btnObj.data('id');
+            $.post("{:url('delMacAddress')}",{id:$id},function(result){
+//                var result = eval('('+result+')');
+                if(!result.success){
+                    alert(result.msg);
+                } else{
+                    top.location = '{:url("index")}'
+                }
+            });
+        }
+    });
+
+
 });
 
 
