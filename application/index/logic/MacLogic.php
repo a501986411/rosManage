@@ -15,12 +15,17 @@
 
 	class MacLogic extends Model
 	{
-		protected $domain = 'home.webok.me';
-		protected $port = '8728';
-		protected $user = 'api';
-		protected $pwd = 'api';
+		protected $domain;
+		protected $port;
+		protected $user;
+		protected $pwd;
 		public function __construct(){
 			parent::__construct();
+            $ros = config('ros');
+            $this->domain = $ros['domain'];
+            $this->port = $ros['port'];
+            $this->user = $ros['username'];
+            $this->pwd = $ros['password'];
 		}
 
 		public function getMacList()

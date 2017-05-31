@@ -49,4 +49,12 @@
 			'layout_on'     =>  true,
 			'layout_name'   =>  'layout/layout',
 		],
+
+		'ros'=>[
+			'domain'=>'home.webok.me',
+			'port'=>'8728',
+			'username'=>'api',
+			'password'=>'api'
+		]
 	];
+
