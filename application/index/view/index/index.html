@@ -14,11 +14,12 @@
             </thead>
             <tbody>
             {php}
-                foreach($list as $k=>$v){
-                    echo '<tr class="text-c">
+                foreach(array_reverse($list) as $k=>$v){
+            $encode = mb_detect_encoding($v['comment'], array("ASCII",'UTF-8',"GB2312","GBK",'BIG5'));
+            echo '<tr class="text-c">
                 <td>'.($k+1).'</td>
                 <td>'.$v['mac-address'].'</td>
-                <td>'.$v['comment'].'</td>
+                <td>'.mb_convert_encoding($v['comment'],"UTF-8",$encode).'</td>
                 <td>'.$v['type'].'</td>
                 <td>
                     <!--<input class="btn btn-primary radius editBtn"  type="button" value="编辑">-->

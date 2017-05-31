@@ -8,7 +8,7 @@
 	 * Time: 13:35
 	 */
 	namespace app\index\controller;
-	use app\index\Logic\MacLogic;
+	use app\index\logic\MacLogic;
 	use think\Controller;
 	use think\Exception;
 	use think\Request;

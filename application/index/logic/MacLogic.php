@@ -7,7 +7,7 @@
 	 * Date: 2017/5/26
 	 * Time: 15:35
 	 */
-	namespace app\index\Logic;
+	namespace app\index\logic;
 	use org\RouterosApi;
     use org\RouterosInfo;
     use think\Model;
@@ -34,6 +34,7 @@
 			$ipBindInfo = $ros->getIpBindInfo();
 			foreach ($ipBindInfo as $k=>&$v){
                 $v['comment']= isset($v['comment']) ? $v['comment'] : '';
+                $v['type']= isset($v['type']) ? $v['type'] : '';
             }
 			return $ipBindInfo;
 		}
