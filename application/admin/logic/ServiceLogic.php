@@ -127,35 +127,19 @@ class ServiceLogic extends Model
      */
     public function getRosInfo($rosObj,&$v)
     {
-        if(!is_array($rosObj)){
-            $v['uptime'] = $rosObj->runTime;
-            $v['version'] = $rosObj->version;//ROS系统版本
-            $v['memory_float'] = $rosObj->memoryRate;
-            $v['memory_ratio'] = ($rosObj->memoryRate * 100)."%" ;//内存占用率
-            $v['cpu_float'] = $rosObj->cpuLoad;
-            $v['cpu_ratio'] = $rosObj->cpuLoad.'%';
-            $v['free_hdd_space'] = $rosObj->freeHddSpace;
-            $v['active_float'] = round(($rosObj->onLineUserNum/(int)$v['max_number'])*100,2);
-            $v['active_ratio'] = $v['active_float'].'%';
-            $v['now_time'] = $rosObj->systemTime;
-            $v['status'] = $rosObj->status;
-            $v['update_t']  = isset($rosObj->update_time) ? $rosObj->update_time : date('Y-m-d H:i:s',time());
-            $v['update_int']  = strtotime($v['update_t']);
-        } else {
-            $v['uptime'] = $rosObj['runTime'];
-            $v['version'] = $rosObj['version'];//ROS系统版本
-            $v['memory_float'] = $rosObj['memoryRate'];
-            $v['memory_ratio'] = ($rosObj['memoryRate'] * 100)."%" ;//内存占用率
-            $v['cpu_float'] = $rosObj['cpuLoad'];
-            $v['cpu_ratio'] = $rosObj['cpuLoad'].'%';
-            $v['free_hdd_space'] = $rosObj['freeHddSpace'];
-            $v['active_float'] = round(($rosObj['onLineUserNum']/(int)$v['max_number'])*100,2);
-            $v['active_ratio'] = $v['active_float'].'%';
-            $v['now_time'] = $rosObj['systemTime'];
-            $v['status'] = $rosObj['status'];
-            $v['update_t'] = isset($rosObj['update_time']) ? $rosObj['update_time'] : date('Y-m-d H:i:s',time());
-            $v['update_int']  = strtotime($v['update_t']);
-        }
+        $v['uptime'] = $rosObj->runTime;
+        $v['version'] = $rosObj->version;//ROS系统版本
+        $v['memory_float'] = $rosObj->memoryRate;
+        $v['memory_ratio'] = ($rosObj->memoryRate * 100)."%" ;//内存占用率
+        $v['cpu_float'] = $rosObj->cpuLoad;
+        $v['cpu_ratio'] = $rosObj->cpuLoad.'%';
+        $v['free_hdd_space'] = $rosObj->freeHddSpace;
+        $v['active_float'] = round(($rosObj->onLineUserNum/(int)$v['max_number'])*100,2);
+        $v['active_ratio'] = $v['active_float'].'%';
+        $v['now_time'] = $rosObj->systemTime;
+        $v['status'] = $rosObj->status;
+        $v['update_t']  = isset($rosObj->update_time) ? $rosObj->update_time : date('Y-m-d H:i:s',time());
+        $v['update_int']  = strtotime($v['update_t']);
     }
 
     /**

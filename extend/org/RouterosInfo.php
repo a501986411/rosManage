@@ -162,9 +162,8 @@
 			$en = ['January','February','March','April',
 				'May','June','July','August','September',
 				'October','November','December'];
-
 			$cn = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-			$en1 = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+			$en1 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'];
 			return str_ireplace ($en1,$cn,str_ireplace ($en,$cn,str_ireplace('Z',' ',$date)));
 		}
 
