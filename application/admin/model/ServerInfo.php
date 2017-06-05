@@ -14,14 +14,14 @@ use think\Model;
 
 class ServerInfo extends Model
 {
-    protected $autoWriteTimestamp = true;//自动写入时间戳
+    protected $autoWriteTimestamp = false;//
     public function initialize()
     {
         parent::initialize();
     }
 
     /**
-     * 系统运行时间
+     *
      * @access public
      * @param $value
      * @param $data
@@ -34,7 +34,7 @@ class ServerInfo extends Model
     }
 
     /**
-     * 内存占用率
+     *
      * @access public
      * @param $value
      * @param $data
@@ -46,7 +46,7 @@ class ServerInfo extends Model
         return round(1-($data['freeMemory']/$data['totalMemory']),2);
     }
     /**
-     * 获取空闲空间
+     *
      * @access public
      * @param $value
      * @param $data
@@ -59,7 +59,7 @@ class ServerInfo extends Model
     }
 
     /**
-     * 获取空闲空间
+     *
      * @access public
      * @param $value
      * @param $data
@@ -72,7 +72,7 @@ class ServerInfo extends Model
     }
 
     /**
-     * 系统创建时间
+     *
      * @access public
      * @param $value
      * @param $data
@@ -83,7 +83,7 @@ class ServerInfo extends Model
         return date('Y-m-d H:i:s',strtotime(RouterosInfo::enDateToCn($value)));
     }
     /**
-     * 系统创建时间
+     *
      * @access public
      * @param $value
      * @param $data
