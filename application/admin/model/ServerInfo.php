@@ -14,7 +14,7 @@ use think\Model;
 
 class ServerInfo extends Model
 {
-    protected $autoWriteTimestamp = false;//
+    protected $autoWriteTimestamp = true;//
     public function initialize()
     {
         parent::initialize();
