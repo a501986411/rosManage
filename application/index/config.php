@@ -51,10 +51,18 @@
 		],
 
 		'ros'=>[
-			'domain'=>'home.webok.me',
+			'domain'=>'vpn.webok.me',
 			'port'=>'8728',
 			'username'=>'api',
 			'password'=>'api'
 		]
+
+//		'ros'=>[
+//            'domain'=>'whcp.iciw.cn',
+//            'port'=>'8999',
+//            'username'=>'iciw',
+//            'password'=>'iciwwhcp'
+//        ]
+
 	];
 
