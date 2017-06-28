@@ -9,7 +9,6 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 	return [
-        'default_filter'         => 'trim,strip_tags,htmlspecialchars',
 		'captcha'  => [
 			// 验证码字符集合
 			'codeSet'  => '0123456789',
@@ -45,24 +44,9 @@
 			// 是否使用 setcookie
 			'setcookie' => true,
 		],
+
 		'template'               => [
-			'layout_on'     =>  true,
+			'layout_on'     =>  false,
 			'layout_name'   =>  'layout/layout',
 		],
-
-		'ros'=>[
-			'domain'=>'vpn.webok.me',
-			'port'=>'8728',
-			'username'=>'api',
-			'password'=>'api'
-		]
-
-//		'ros'=>[
-//            'domain'=>'whcp.iciw.cn',
-//            'port'=>'8999',
-//            'username'=>'iciw',
-//            'password'=>'iciwwhcp'
-//        ]
-
 	];
-
