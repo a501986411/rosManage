@@ -9,6 +9,7 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 	return [
+		'default_return_type'=>'json',
 		'captcha'  => [
 			// 验证码字符集合
 			'codeSet'  => '0123456789',

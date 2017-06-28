@@ -17,9 +17,13 @@ class Ios extends Controller{
 	public function iosApi(){
 		if(Request::instance()->isPost()){
 			$logic = new IosLogic(new ZxcIosApiData());
-			return $logic->doOption(input());
+			$data = input();
+			if(isset($data['params'])){
+				$data = json_decode($data['params'],true);
+			}
+			return $logic->doOption($data);
 		} else {
-			return ['message'=>'无效数据','success'=>false];
+			return ['message'=>'鏃犳晥鏁版嵁','success'=>false];
 		}
 	}
 }

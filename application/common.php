@@ -13,7 +13,7 @@
 use think\Route;
 // admin子域名绑定到admin模块
 Route::domain('ros.com','admin');
-Route::domain('index.ros.com','index');
+Route::domain('index.ros.com','zxc');
 function enDateToCn($date)
 {
     $en = ['January','February','March','April',
