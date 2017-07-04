@@ -18,6 +18,9 @@ class Ios extends Controller{
 		if(Request::instance()->isPost()){
 			$logic = new IosLogic(new ZxcIosApiData());
 			$data = input();
+			if(empty($data)){
+				return ['message'=>'无效数据','success'=>false];
+			}
 			if(isset($data['params'])){
 				$data = json_decode($data['params'],true);
 			}
