@@ -20,7 +20,6 @@ class RosInfo extends Controller
     public function getApi()
     {
         if(Request::instance()->isGet()){
-            Log::write(json_encode(input(),JSON_UNESCAPED_UNICODE));
             $data = input();
             $logic = new RosInfoLogic(new ServerInfo());
             $logic->saveInfo($data);
